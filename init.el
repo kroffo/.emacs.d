@@ -29,9 +29,6 @@
 (setq auto-mode-alist (append '(("\\.apf$" . apgen-mode))
                               auto-mode-alist))
 
-; Load a fun little mode a made :)
-(load "~/.emacs.d/fun-mode.el")
-
 ; Set keybindings for multiple cursors
 ; For more potential commands visit https://github.com/magnars/multiple-cursors.el
 (unless (package-installed-p 'multiple-cursors)
@@ -71,6 +68,9 @@
 
 ;highlight the current line
 (global-hl-line-mode t)
+
+;enforce newline character at end of file
+(setq require-final-newline t)
 
 ;disable electric indent mode
 (when (fboundp 'electric-indent-mode) (electric-indent-mode -1))
@@ -159,36 +159,5 @@
 ; do default config for auto-complete
 (require `auto-complete-config)
 (ac-config-default)
-
-; turn on semantic mode
-(semantic-mode 1)
-; define function to run
-(defun my:add-semantic-to-autocomplete()
-  (add-to-list 'ac-sources 'ac-source-semantic)
-)
-(add-hook 'c-mode-common-hook 'my:add-semantic-to-autocomplete)
-(add-hook 'c++-mode-common-hook 'my:add-semantic-to-autocomplete)
-
-; turn on ede mode
-(global-ede-mode 1)
-; create a project for each application you need
-; file - specify any file at the root of the your project
-; include-path - specify directories to lookup when include <foo.h> is specified
-
-; It would seem there can only be one ede-cpp-root-project, so we comment one for now
-;(ede-cpp-root-project "eurcfsw" :file
-;"/Users/roffo/Documents/fsw_core/eurcfsw/Readme"
-;                      :include-path '("/src"))
-(ede-cpp-root-project "mslfsw" :file
-"/Users/roffo/Documents/fsw_core/mslseq/Readme"
-                      :include-path '("/src"))
-
-; map kbd command to fast jump for definition lookup
-(define-key global-map (kbd "C-c j") 'semantic-ia-fast-jump)
-(define-key global-map (kbd "C-c g") 'semantic-symref)
-(define-key global-map (kbd "C-c s") 'semantic-ia-show-summary)
-
-(global-semantic-idle-summary-mode)
-(global-semanticdb-minor-mode)
 
 (setq tramp-copy-size-limit nil)
